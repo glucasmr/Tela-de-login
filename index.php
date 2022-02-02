@@ -11,7 +11,7 @@
             <input type = "email" placeholder="Usuário">
             <input type = "password" placeholder="Senha">
             <input type = "submit"value="ACESSAR">
-            <a href="" >Ainda não é inscrito?<strong>Cadastre-se</strong></a>
+            <a href="cadastrar.php" >Ainda não é inscrito?<strong>Cadastre-se</strong></a>
         </form>
     </div>
     </body>
