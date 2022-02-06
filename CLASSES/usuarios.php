@@ -2,7 +2,7 @@
 
 Class Usuario
 {
-    private $pdo; //private somente é visto dentro da classe. é
+    private $pdo; //private somente é visto dentro da classe.
     public $msgErro = "";
 
     public function conectar($nome, $host, $usuario, $senha) 
@@ -42,7 +42,7 @@ Class Usuario
             return true;
         }
         
-    }
+    }   
 
     public function logar($email,$senha)
     {
