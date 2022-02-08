@@ -3,7 +3,7 @@
 Class Usuario
 {
     private $pdo; //private somente é visto dentro da classe.
-    public $msgErro = "";
+    public $msgErro = ""; // se está variável está vazia significa que está ok
 
     public function conectar($nome, $host, $usuario, $senha) 
     {
@@ -28,7 +28,7 @@ Class Usuario
 
         if($sql->rowCount() > 0)
         {
-            return false //já esta cadastrada
+            return false; //já esta cadastrada
         }
         else
         {
@@ -37,9 +37,9 @@ Class Usuario
             $sql->bindValue(":n",$nome);
             $sql->bindValue(":t",$telefone);
             $sql->bindValue(":e",$email);
-            $sql->bindValue(":s",$senha);
+            $sql->bindValue(":s",md5($senha));//antes de fazer a inserção no banco de dados, realiza a criptografia da senha
             $sql->execute();
-            return true;
+            return true; //cadastrado com sucesso
         }
         
     }   
@@ -47,6 +47,36 @@ Class Usuario
     public function logar($email,$senha)
     {
         global $pdo;
+        //verificar se o email e senha estão cadastrados, se sim
+        $sql = $pdo->prepare("SELECT id_usuario FROM usuarios WHERE email = :e AND senha = :s");
+        $sql->bindValue(":e" ,$email);
+        $sql->bindValue(":s" ,md5($senha));
+        $sql->execute();
+        if($sql->rowCount() > 0)
+        {
+            //entrar no sistema (sessão)
+            $dado = $sql->fetch(); //pega a consulta(sql) que veio do banco e salva em um dado. Usa o método fetch() que transforma a informação que veio do BD em um array com nomes das colunas
+            session_start(); 
+            $_SESSION['id_usuario'] = $dado['id_usuario']; //$_SESSION['id_usuario'] é uma variável global da sessão. recebe o array de mesmo nome
+            return true; //logado com sucesso
+
+
+        }
+        else
+        {
+            return false; //não cadastrado ou não foi possível logar
+        }
+        
+        
+        
+        
+        
+
+
+
+
+
+
     }
 
 
