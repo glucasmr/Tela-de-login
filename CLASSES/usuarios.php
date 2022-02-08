@@ -57,7 +57,7 @@ Class Usuario
             //entrar no sistema (sessão)
             $dado = $sql->fetch(); //pega a consulta(sql) que veio do banco e salva em um dado. Usa o método fetch() que transforma a informação que veio do BD em um array com nomes das colunas
             session_start(); 
-            $_SESSION['id_usuario'] = $dado['id_usuario']; //$_SESSION['id_usuario'] é uma variável global da sessão. recebe o array de mesmo nome
+            $_SESSION['id_usuario'] = $dado['id_usuario']; //$_SESSION['id_usuario'] é uma variável global da sessão. recebe o array de mesmo nome obtido da consulta
             return true; //logado com sucesso
 
 

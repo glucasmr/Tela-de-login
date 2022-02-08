@@ -13,7 +13,7 @@
     <body>
     <div id="corpo-form-cad">    
     <h1>Cadastrar</h1>
-        <form method="POST"><!-- ao inves de chamar o arquivo.php, faremos o processamento dentro deste própio arquivo-->
+        <form method="POST"><!-- ao inves de chamar o arquivo.php, faremos o processamento dentro de cadastrar.php mesmo-->
             <input type = "text" name="nome" placeholder="Nome completo" maxlength="30"> <!-- maxlength de acordo com o tamanho máximo dos parâmetros do BD -->
             <input type = "text" name="telefone" placeholder="Telefone" maxlength="30">
             <input type = "email" name="email" placeholder="Usuário" maxlength="40">
@@ -22,11 +22,12 @@
             <input type = "submit"value="Cadastrar">
           </form>
     </div>
+
     <?php
     // verificar se clicou no botao cadastrar
-    if (isset($_POST['nome'])) // isset verifica a existência de uma variável ou array. Vai verificar se colheu atributos name = nome
+    if (isset($_POST['nome'])) // isset verifica a existência de uma variável ou array.Vai verificar se colheu atributos name = nome, ou seja, se o botão foi clicado
     {
-        $nome = addslashes($_POST['nome']); //pega a informação colhida pelo POST e guarda numa variável. Por medida de segurança, usamos o addslashes para garantir que não ocorra injeção de código
+        $nome = addslashes($_POST['nome']); //pega a informação colhida pelo POST e guarda numa variável. Por medida de segurança, usamos o addslashes para garantir que não ocorra injeção de código malicioso
         $telefone = addslashes($_POST['telefone']);
         $email = addslashes($_POST['email']);
         $senha = addslashes($_POST['senha']);
@@ -42,29 +43,51 @@
                 {
                     if($u->cadastrar($nome,$telefone,$email,$senha)) //caso o return seja true, cadastrado com sucesso
                     {
-                        echo "Cadastrado com sucesso! Acesse para entrar!";
+                        ?>
+                        <div id="msg-sucesso">
+                            Cadastrado com sucesso! Acesse para entrar!
+                        </div>                        
+                        <?php
                     }
                     else
                     {
-                        echo "Email já cadastrado!";
-                    }
+                        ?>
+                        <div class="msg-erro">
+                            Email já cadastrado!
+                        </div>                        
+                        <?php
+                        }
 
                 }
                 else
                 {
-                    echo "Senha e confirmar senha não correspondem!";
+                    ?>
+                    <div class="msg-erro">
+                        Senha e confirmar senha não correspondem!
+                    </div>                        
+                    <?php
                 }
                 
             }
             else
             {
-                echo "Erro: ".$u->msgErro;
+                ?>
+                    <div class="msg-erro">
+                        <?php echo "Erro: ".$u->msgErro; ?>
+                    </div>                        
+                    <?php
+                
             }
         
         }
         else
         {
-            echo "Preencha todos os campos!";
+            ?>
+            <div class="msg-erro">
+                Preencha todos os campos!
+            </div>                        
+            <?php
+            
         }
 
 
