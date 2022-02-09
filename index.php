@@ -34,7 +34,7 @@
                     if($u->logar($email,$senha)) //verifica se foi possível logar
                     {
                         //inicia sessão
-                        header("location: areaPrivada.php");
+                        header("location: areaPrivada.php"); //direciona para a área privada
                     }
                     else
                     {

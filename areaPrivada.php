@@ -1,8 +1,8 @@
 <?php
     session_start();
-    if(!isset($_SESSION['id_usuario']))
+    if(!isset($_SESSION['id_usuario'])) //verifica se a sessão realmente foi iniciada, se não foi iniciada e o usuário tentou acessar pela url
     {
-        header("location: index.php");
+        header("location: index.php"); //se sim, redireciona para a área de login
         exit;
     }
 ?>
